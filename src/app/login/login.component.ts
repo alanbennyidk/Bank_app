@@ -41,6 +41,24 @@ export class LoginComponent implements OnInit {
     console.log(this.pswd);
     
   }
+  // login(a:any,p:any){               //evnt binding using template refference variable
+  //   //alert('login clicked')
+  //   var acno=a.value;                  //                   ||
+  //   var pswd=a.value;                  //                   ||
+  //   var userDetails=this.userDetails;
+
+  //   if(acno in userDetails){
+  //     if(pswd==userDetails[acno]['password']){
+  //       alert('Login successful')
+  //     }
+  //     else{
+  //       alert('Invalid password')
+  //     }
+  //   }
+  //   else{
+  //     alert('Invalid userdetails')
+  //   }
+  // }
   login(){
     //alert('login clicked')
     var acno=this.acno;

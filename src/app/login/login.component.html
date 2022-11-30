@@ -6,15 +6,14 @@
     <div class="container w-25 border mt-5 p-3" style="background: rgba(57, 87, 79, 0.5); border-radius: 25px;">
         <h1 class="text-center text-white">Login Page</h1>
         <div class="mt-2 p-2">
-            <input (change)="acnoChange($event)" type="text" name="acno" [placeholder]="account" class="form-control" id="login_acno">
+            <input [(ngModel)]="acno" type="text" name="acno" [placeholder]="account" class="form-control" id="login_acno"><!-- 2 way binding -->
         </div>
         <div class="mt-2 p-2">
-            <input (change)="pswdChange($event)" type="password" name="pswd" placeholder="enter Passsword" class="form-control" id="login_pswd">
+            <input [(ngModel)]="pswd" type="password" name="pswd" placeholder="enter Passsword" class="form-control" id="login_pswd"><!-- 2 way binding -->
         </div>
         <div class="text-center mt-2 p-2">
-        <button class="btn btn-outline-info" (click)="login()"  type="button">Login</button><br><br>
+        <button class="btn btn-outline-info" (click)="login()"  type="button">Login</button><br><br>  <!-- 2 way binding -->
             <p class="text-white">new user?<a class="text-info" href="">register</a></p>
         </div>
     </div>
-    
 </form>
