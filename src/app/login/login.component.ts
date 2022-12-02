@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { DataService } from '../services/data.service';
 
 @Component({
   selector: 'app-login',
@@ -8,21 +10,14 @@ import { Component, OnInit } from '@angular/core';
 export class LoginComponent implements OnInit {
 
   aim="your perfect banking partner"
-  account="enter your account here"
+  account="Enter Account Number"
 
   
   acno=''
   pswd=''
 
 
-  userDetails:any={
-    1000:{acno:1000,username:"arun",password:123,balance:1000},
-    1001:{acno:1001,username:"amal",password:123,balance:1000},
-    1002:{acno:1002,username:"anil",password:123,balance:1000},
-
-  }
-
-  constructor() { }
+  constructor(private ds:DataService,private router:Router) { }
 
   ngOnInit(): void {
   }
@@ -63,11 +58,12 @@ export class LoginComponent implements OnInit {
     //alert('login clicked')
     var acno=this.acno;
     var pswd=this.pswd;
-    var userDetails=this.userDetails;
+    var userDetails=this.ds.userDetails;
 
     if(acno in userDetails){
       if(pswd==userDetails[acno]['password']){
         alert('Login successful')
+        this.router.navigateByUrl('dashboard')
       }
       else{
         alert('Invalid password')

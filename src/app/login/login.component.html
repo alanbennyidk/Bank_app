@@ -1,4 +1,4 @@
-<div>
+ <div>
     <h3 class="text-info p-2">{{aim}}</h3>
 </div>
 
@@ -9,11 +9,11 @@
             <input [(ngModel)]="acno" type="text" name="acno" [placeholder]="account" class="form-control" id="login_acno"><!-- 2 way binding -->
         </div>
         <div class="mt-2 p-2">
-            <input [(ngModel)]="pswd" type="password" name="pswd" placeholder="enter Passsword" class="form-control" id="login_pswd"><!-- 2 way binding -->
+            <input [(ngModel)]="pswd" type="password" name="pswd" placeholder="Passsword" class="form-control" id="login_pswd"><!-- 2 way binding -->
         </div>
         <div class="text-center mt-2 p-2">
         <button class="btn btn-outline-info" (click)="login()"  type="button">Login</button><br><br>  <!-- 2 way binding -->
-            <p class="text-white">new user?<a class="text-info" href="">register</a></p>
+            <p class="text-white">new user?<a class="text-info" routerLink="register">register</a></p>
         </div>
     </div>
 </form>
