@@ -1,5 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 body{
-    background-image: url("./assets/pexels-eberhard-grossgasteiger-1287145.jpg");
-    background-size: cover;
+    background-image: url("./assets/20944139.jpg");
+    /* background-image: url("./assets/515319-PIRK7R-406.jpg"); */
+    background-size:cover; 
 }

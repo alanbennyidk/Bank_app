@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DataService } from '../services/data.service';
 
@@ -9,29 +10,40 @@ import { DataService } from '../services/data.service';
 })
 export class RegisterComponent implements OnInit {
 
-  acno='';
-  pswd='';
-  uname='';
+  uname="";
+  acno="";
+  pswd="";
 
-  constructor(private ds:DataService,private router:Router) { }
+  constructor(private fb:FormBuilder,private ds:DataService,private router:Router) { }
 
+    //registration model
+    registerForm=this.fb.group({//group
+    uname:['',[Validators.required,Validators.pattern('[a-zA-Z]*')]],//array
+    acno:['',[Validators.required,Validators.pattern('[0-9]*')]],
+    pswd:['',[Validators.required,Validators.pattern('[a-zA-Z0-9]*')]]
+    })
+
+    //control pass to ts to html file
   ngOnInit(): void {
   }
   register(){
-    //alert('register clicked')
-    var uname=this.uname;
-    var acno=this.acno;
-    var pswd=this.pswd;
-    
-    const result=this.ds.register(acno,uname,pswd);
-    if(result){
-      alert('register successful')
-      this.router.navigateByUrl('')
-    }
-    else{
-      alert('user already registered');
-      this.router.navigateByUrl('register')
-    }
-  }
 
-}
+    console.log(this.registerForm); //value   
+    
+    var username=this.registerForm.value.uname;
+    var password=this.registerForm.value.pswd;
+    var acno=this.registerForm.value.acno;
+    if(this.registerForm.valid){
+
+    //console.log(this.registerForm.get('uname')?.errors); //valid or not
+    this.ds.register(acno,username,password)
+    .subscribe((result:any)=>{
+      alert(result.message);
+      this.router.navigateByUrl('')
+    },
+    result=>{
+      alert(result.error.message)
+    })
+  }
+}}
+

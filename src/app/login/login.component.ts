@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DataService } from '../services/data.service';
 
@@ -8,30 +9,38 @@ import { DataService } from '../services/data.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  //class - collection of properties and functions
+  //properties/variables
 
-  aim="your perfect banking partner"
-  account="Enter Account Number"
+  //aim="your perfect banking partner";
+
+  account="Enter Account Number";
 
   
-  acno=''
-  pswd=''
+  acno='';
+  pswd='';
 
 
-  constructor(private ds:DataService,private router:Router) { }
+      //loginForm model
+      loginForm=this.fb.group({//group
+        acno:['',[Validators.required,Validators.pattern('[0-9]*')]],//array
+        pswd:['',[Validators.required,Validators.pattern('[a-zA-Z0-9]*')]]
+        })
+    
+
+  constructor(private ds:DataService,private router:Router,private fb:FormBuilder) { }
 
   ngOnInit(): void {
   }
 
-  acnoChange(event:any)
-  {
+  acnoChange(event:any) {
     console.log(event);
+
     this.acno=event.target.value;
     console.log(this.acno);
     
   }
-  pswdChange(event:any)
-  {
-    console.log(event);
+  pswdChange(event:any){
     this.pswd=event.target.value;
     console.log(this.pswd);
     
@@ -56,22 +65,21 @@ export class LoginComponent implements OnInit {
   // }
   login(){
     //alert('login clicked')
-    var acno=this.acno;
-    var pswd=this.pswd;
-    var userDetails=this.ds.userDetails;
-
-    if(acno in userDetails){
-      if(pswd==userDetails[acno]['password']){
-        alert('Login successful')
-        this.router.navigateByUrl('dashboard')
-      }
-      else{
-        alert('Invalid password')
-      }
+   // var userDetails=this.ds.userDetails;
+    if(this.loginForm.valid){
+      var acno=this.loginForm.value.acno;
+      var pswd=this.loginForm.value.pswd;
+    this.ds.login(acno,pswd)
+    .subscribe((result:any)=>{
+      localStorage.setItem('currentUser',JSON.stringify(result.currentUser));
+      localStorage.setItem('currentAcno',JSON.stringify(result.currentAcno));
+      localStorage.setItem('token',JSON.stringify(result.token));
+    alert(result.message);
+    this.router.navigateByUrl('dashboard')
+    },
+    result=>{
+    alert(result.error.message)
     }
-    else{
-      alert('Invalid userdetails')
-    }
-  }
-
+  )
 }
+}}

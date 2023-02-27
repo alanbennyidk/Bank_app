@@ -1,1 +1,83 @@
-<p>dashboard works!</p>
+<button class="btn btn-success" style="float: right;" (click)="logout()">Logout</button>
+<button class="btn btn-success" style="float: right;" (click)="delete()">Delete</button>
+
+<div class="parent">
+    <div>
+        <h1>Welcome {{user}}</h1>
+        <a routerLink="/transaction">Transaction History</a>
+        <!-- <h2>System Date and Time:{{sdate | date:'short'}}</h2> -->
+    </div>
+
+    <!-- child component -->
+    <app-delete [item]="acno" (onCancel)="onCancel()" (onDelete)="onDelete($event)"></app-delete>
+    <!-- (onCancel) - undefined event -->
+
+    <div class="child" [ngClass]="acno? 'style1':'' ">
+
+
+        <form [formGroup]="depositForm">
+            <div class="container w-25 border mt-5 p-3" style="background: rgba(57, 87, 79, 0.5); border-radius: 25px;">
+                <h1 class="text-center text-white">Deposit</h1>
+                <div class="mt-2 p-2">
+                    <input formControlName="acno" type="text" name="Account number" placeholder="Account Number"
+                        class="form-control" id="depo_acno">
+                </div>
+                <div *ngIf="this.depositForm.get('acno')?.errors && this.depositForm.get('acno')?.touched"
+                    style="color: red;">Invalid Account Number</div>
+
+                <div class="mt-2 p-2">
+                    <input formControlName="pswd" type="password" name="password" placeholder="Password"
+                        class="form-control" id="depo_pswd">
+                </div>
+                <div *ngIf="this.depositForm.get('pswd')?.errors && this.depositForm.get('pswd')?.touched"
+                    style="color: red;">Invalid password</div>
+
+                <div class="mt-2 p-2">
+                    <input formControlName="amount" type="text" name="userName" placeholder="Amount" class="form-control"
+                        id="depo_name">
+                </div>
+                <div *ngIf="this.depositForm.get('amount')?.errors && this.depositForm.get('amount')?.touched"
+                    style="color: red;">Invalid Data</div>
+
+                <div class="text-center mt-2 p-2">
+                    <button class="btn btn-outline-info" (click)="deposit()" type="button">Deposit</button><br><br>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="child" [ngClass]="acno? 'style1':''">
+
+        <form [formGroup]="withdrawForm">
+            <div class="container w-25 border mt-5 p-3" style="background: rgba(57, 87, 79, 0.5); border-radius: 25px;">
+                <h1 class="text-center text-white">withdraw</h1>
+                <div class="mt-2 p-2">
+                    <input formControlName="acno" type="text" name="Account number" placeholder="Account Number"
+                        class="form-control" id="with_acno">
+                </div>
+
+                <div *ngIf="this.withdrawForm.get('acno')?.errors && this.withdrawForm.get('acno')?.touched"
+                    style="color: red;">Invalid Account Number</div>
+
+                <div class="mt-2 p-2">
+                    <input formControlName="pswd" type="password" name="password" placeholder="Password"
+                        class="form-control" id="with_pswd">
+                </div>
+
+                <div *ngIf="this.withdrawForm.get('pswd')?.errors && this.withdrawForm.get('pswd')?.touched"
+                    style="color: red;">Invalid password</div>
+
+                <div class="mt-2 p-2">
+                    <input formControlName="amount" type="text" name="userName" placeholder="Amount" class="form-control"
+                        id="with_amount">
+                </div>
+
+                <div *ngIf="this.withdrawForm.get('amount')?.errors && this.withdrawForm.get('amount')?.touched"
+                    style="color: red;">Invalid Data</div>
+
+                <div class="text-center mt-2 p-2">
+                    <button class="btn btn-outline-info" (click)="withdraw()" type="button">withdraw</button><br><br>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
